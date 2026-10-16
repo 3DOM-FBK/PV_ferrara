@@ -37,7 +37,7 @@ def create_project(coord_system_code, location_name):
 #
 ###################################################################
 def import_raster(inFile, outName, prjPath):
-    cmd = "grass " + prjPath + " --exec r.import input=" + inFile + " output=" + outName
+    cmd = "grass " + prjPath + " --exec r.import --overwrite input=" + inFile + " output=" + outName
 
     run_grass_cmd(cmd)
 
@@ -168,7 +168,7 @@ def process_data_rSun_month(dataset, prjPath, dataFolder, outFolder):
             datetime_object = datetime.datetime.strptime(str(month_num), "%m")
             month = (datetime_object.strftime("%B")).lower()
 
-            month_files = [s for s in rSun_files if month in s]
+            month_files = [s for s in rSun_files if ("_" + month + "_") in s and not s.endswith(".aux.xml")]  # FIX: skip sidecar files
 
             """
             Import rSun raster maps
@@ -226,7 +226,7 @@ def process_data_rSun_year(dataset, prjPath, dataFolder, outFolder):
         Set folder to get rSun raster and get all files
         """
         rSun_month_folder = os.path.join(outFolder, raster_name)
-        rSun_month_files = os.listdir(rSun_month_folder)
+        rSun_month_files = [s for s in os.listdir(rSun_month_folder) if not s.endswith("_year") and not s.endswith(".aux.xml")]  # FIX: avoid double counting on rerun
 
         rSun_month_raster_list = []
 
@@ -358,4 +358,4 @@ if __name__ == "__main__":
     Get Elapsed Time
     """
     elapsed_time = timeit.default_timer() - start_time_main
-    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
+    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))

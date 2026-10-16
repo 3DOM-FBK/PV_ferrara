@@ -154,10 +154,7 @@ def process_data(prjPath, month, dataFolder):
 
 
 
-    list_rasterName = str()#[]#f #.replace(".tif", "")
-    for raster in rasterName_arr:
-        if ( raster is not None ):
-            list_rasterName = list_rasterName + "," + raster
+    list_rasterName = ",".join(r for r in rasterName_arr if r is not None)  # FIX: no leading comma
     """
     Set region
     """
@@ -221,7 +218,7 @@ if __name__ == "__main__":
     check_outfolder(dataFolder)
 
     # start_process = False
-    for month in ['january','february','march','april','may','june','july','august','september','october','november','december']:
+    for month in ['january','february','march','april','may','june','july','august','september','october','november','december','year']:  # FIX: also mosaic the yearly sum
         process_data(prjPath, month, dataFolder)
 
     """

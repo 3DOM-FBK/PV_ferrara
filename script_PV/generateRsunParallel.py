@@ -72,7 +72,7 @@ def set_region(raster_name, res, prjPath, region_type):
 #
 ###################################################################
 def compute_rSun(dtm, horizon, step, ascpect, slope, month, day, outName):
-    cmd = "grass " + prjPath + " -f --exec r.sun elevation=" + dtm + " horizon_basename=" + horizon + " horizon_step=" + str(step) + " aspect=" + ascpect + " slope=" + slope + " linke=" + month + ".tif day=" + str(day) + " glob_rad=" + outName
+    cmd = "grass " + prjPath + " -f --exec r.sun --overwrite elevation=" + dtm + " horizon_basename=" + horizon + " horizon_step=" + str(step) + " aspect=" + ascpect + " slope=" + slope + " linke=" + month + ".tif day=" + str(day) + " glob_rad=" + outName
 
     run_grass_cmd(cmd)
 
@@ -282,4 +282,4 @@ if __name__ == "__main__":
     Get Elapsed Time
     """
     elapsed_time = timeit.default_timer() - start_time_main
-    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
+    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
