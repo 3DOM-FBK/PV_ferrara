@@ -1,6 +1,6 @@
-# PV_ferrara
+# Solar radiation estimantion pipeline
 
-## run docker
+## run on docker
 1) create image by:
 ```
 docker load --input grassv2.tar
@@ -62,6 +62,3 @@ find . -name "*.xml" -type f|xargs rm -f
 ## TODOS:
 1) integrate border DTM with coarser res EU-DEM
 2) solve issue with xml file produced by QGIS script
-3) integrate PIPELINE tu RUN entirely
-4) [DONE]script to merge rSun outputs
-5) check why r.patch create 1oixel ( 1m ) no data
